@@ -68,12 +68,15 @@ Ouvrir http://localhost:5173
    | Backend         | `backend`        |
    | Base de données | `db`             |
 
-5. Lancer l'application avec Docker Compose et vérifier que le CRUD fonctionne suivant la configuration du docker compose.
+5. Lancer l'application avec Docker Compose et vérifier que le CRUD fonctionne suivant la configuration du docker compose suivant la commande:
+
+   ```bash
+   docker compose up 
+   ```
 
 ### Indications
 
 - Le backend lit sa configuration MySQL dans les variables d'environnement `DB_HOST`, `DB_USER`, `DB_PASSWORD`, `DB_NAME` et `PORT`.
 - Dans Docker Compose, les conteneurs communiquent par leur nom : le backend doit joindre MySQL avec `db` et non `localhost`.
-- Le proxy du frontend (`frontend/vite.config.js`) pointe vers `http://localhost:5000` : à l'intérieur du conteneur `frontend`, le backend s'appelle `backend`.
 - MySQL met quelques secondes à démarrer : prévoir que le backend attende la base (`depends_on`, `healthcheck`, `restart`…).
 - Ne pas copier `node_modules` ni `.env` dans les images (utiliser un `.dockerignore`).
