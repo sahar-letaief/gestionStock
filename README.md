@@ -80,3 +80,18 @@ Ouvrir http://localhost:5173
 - Dans Docker Compose, les conteneurs communiquent par leur nom : le backend doit joindre MySQL avec `db` et non `localhost`.
 - MySQL met quelques secondes à démarrer : prévoir que le backend attende la base (`depends_on`, `healthcheck`, `restart`…).
 - Ne pas copier `node_modules` ni `.env` dans les images (utiliser un `.dockerignore`).
+
+### Partie 3 : CI/CD avec GitHub Actions
+
+6. Créer un workflow `.github/workflows/build.yml` qui **build l'application** (frontend et backend) :
+   - installer les dépendances de chaque partie (`npm ci`) ;
+   - lancer le build du frontend (`npm run build`).
+7. Créer un workflow `.github/workflows/docker.yml` qui **build et push les images Docker** du frontend et du backend sur **votre compte Docker Hub** :
+   - `<votre-user>/rch-frontend`
+   - `<votre-user>/rch-backend`
+8. Déclencher les workflows à chaque `push` sur votre branche et vérifier qu'ils passent au vert dans l'onglet **Actions** du dépôt, puis que les images sont bien présentes sur Docker Hub.
+
+### Indications
+
+
+- Ne jamais écrire vos identifiants Docker Hub dans un workflow : créer un **Access Token** sur Docker Hub et l'enregistrer dans les **secrets** du dépôt GitHub (`DOCKERHUB_USERNAME`, `DOCKERHUB_TOKEN`).
